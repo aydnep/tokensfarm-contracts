@@ -36,6 +36,14 @@ const generateTenderlySlug = () => {
 module.exports = {
   defaultNetwork: 'local',
   networks: {
+    rinkeby: {
+      // Infura public nodes
+      url: 'https://rinkeby.infura.io/v3/34ee2e319e7945caa976d4d1e24db07f',
+      accounts: [process.env.PK || PK],
+      chainId: 4,
+      gasPrice: 40000000000,
+      timeout: 50000
+    },
     ropsten: {
       // Infura public nodes
       url: 'https://ropsten.infura.io/v3/34ee2e319e7945caa976d4d1e24db07f',
