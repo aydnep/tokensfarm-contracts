@@ -1,6 +1,7 @@
 {
     "ropsten": {
-        "Hord": "0xa5bC0f7019261b274A6b8E660169C3F7bAAd2d76",
-        "TokensFarm": "0x0BF509b3b2e877C1494C62E29739FE0BC456Cd03"
+        "RewardToken": "0x6488756bD0A0769cb2a9F13Bf8D2E64d06B9F425",
+        "LP-Token": "0x656Fc0E8fAe5e74346d34bcDe2269fB49730c06C",
+        "TokensFarm": "0x8670F9fe366A7A2deE05E370D1e3A0Ce56d65A7D"
     }
 }
