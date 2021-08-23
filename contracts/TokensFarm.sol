@@ -215,6 +215,8 @@ contract TokensFarm is Ownable {
 
     // Deposit LP tokens to Farm for ERC20 allocation.
     function deposit(uint256 _amount) external payable {
+        require(startTime != 0 && endTime != 0 && startTime <= block.timestamp && block.timestamp < endTime, "Can't deposit");
+
         StakeInfo memory stake;
 
         // Update pool
