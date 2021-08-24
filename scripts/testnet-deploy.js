@@ -27,17 +27,17 @@ async function main() {
   
   const TokensFarm = await hre.ethers.getContractFactory('TokensFarm');
   console.log();
-  const tokensFarm = await TokensFarm.deploy(contracts["RewardToken"], rewardPerSecond, currentTime, 1800, true); // min time to stake = 30 mins
+  // min time to stake = 30 mins
+  // early withdrawal is allowed
+  // penalty = no penalty
+  const congress = "0x28f0178A20f8D423c139188a09FdCCC70Ab1414F";
+  let tokensFarm = await TokensFarm.deploy(contracts["RewardToken"], rewardPerSecond, currentTime, 18000, true, 0, contracts["StakingToken"], congress);
   await tokensFarm.deployed();
   console.log('TokensFarm deployed with address: ', tokensFarm.address);
   saveContractAddress(hre.network.name, 'TokensFarm', tokensFarm.address);
 
   let tokensFarmArtifact = await hre.artifacts.readArtifact("TokensFarm");
   saveContractAbis(hre.network.name, 'TokensFarm', tokensFarmArtifact.abi, hre.network.name);
-
-
-  // add pool and set LP token
-  await tokensFarm.addPool(contracts["RewardToken"], true);
 
 
   // fund rewards
@@ -47,14 +47,10 @@ async function main() {
   await rewardToken.approve(tokensFarm.address, totalRewards);
   console.log('Approved rewards token');
 
-  // console.log('Create new farming pool for reward token');
-  // tokensFarm = await hre.ethers.getContractAt(tokensFarmArtifact.abi, contracts["TokensFarm"]);
-  // await tokensFarm.fund(totalRewards);
-  // console.log('Farm funded properly.');
-
-  // // set penalty
-  // await tokensFarm.setEarlyWithdrawPenalty(0);
-  // console.log('Farm set penalty - BURN_REWARDS.');
+  console.log('Create new farming pool for reward token');
+  tokensFarm = await hre.ethers.getContractAt(tokensFarmArtifact.abi, contracts["TokensFarm"]);
+  await tokensFarm.fund(totalRewards);
+  console.log('Farm funded properly.');
 }
 
 // We recommend this pattern to be able to use async/await everywhere
