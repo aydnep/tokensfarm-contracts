@@ -5,17 +5,17 @@ const { ethers, web3, upgrades } = hre
 async function main() {
   let contracts = getSavedContractAddresses()[hre.network.name];
 
-  // deploy staking/reward token contract
-  const RewardToken = await hre.ethers.getContractFactory('ERC20Mock');
-  console.log();
-  let rewardToken = await RewardToken.deploy("Reward Token", "Hord", 18, ethers.utils.parseEther("1000000000"));
-  await rewardToken.deployed();
-  console.log('RewardToken deployed with address: ', rewardToken.address);
-  saveContractAddress(hre.network.name, 'StakingToken', rewardToken.address);
-  saveContractAddress(hre.network.name, 'RewardToken', rewardToken.address);
+  // // deploy staking/reward token contract
+  // const RewardToken = await hre.ethers.getContractFactory('ERC20Mock');
+  // console.log();
+  // let rewardToken = await RewardToken.deploy("Reward Token", "Hord", 18, ethers.utils.parseEther("1000000000"));
+  // await rewardToken.deployed();
+  // console.log('RewardToken deployed with address: ', rewardToken.address);
+  // saveContractAddress(hre.network.name, 'StakingToken', rewardToken.address);
+  // saveContractAddress(hre.network.name, 'RewardToken', rewardToken.address);
 
-  let rewardTokenArtifact = await hre.artifacts.readArtifact("ERC20Mock");
-  saveContractAbis(hre.network.name, 'RewardToken', rewardTokenArtifact.abi, hre.network.name);
+  // let rewardTokenArtifact = await hre.artifacts.readArtifact("ERC20Mock");
+  // saveContractAbis(hre.network.name, 'RewardToken', rewardTokenArtifact.abi, hre.network.name);
 
 
   // deploy farm contract
@@ -27,17 +27,17 @@ async function main() {
   
   const TokensFarm = await hre.ethers.getContractFactory('TokensFarm');
   console.log();
-  const tokensFarm = await TokensFarm.deploy(contracts["RewardToken"], rewardPerSecond, currentTime, 1800, true); // min time to stake = 30 mins
+  // min time to stake = 30 mins
+  // early withdrawal is allowed
+  // penalty = BURN_REWARDS
+  const congress = "0x28f0178A20f8D423c139188a09FdCCC70Ab1414F";
+  let tokensFarm = await TokensFarm.deploy(contracts["RewardToken"], rewardPerSecond, currentTime, 18000, true, 1, contracts["StakingToken"], congress);
   await tokensFarm.deployed();
   console.log('TokensFarm deployed with address: ', tokensFarm.address);
   saveContractAddress(hre.network.name, 'TokensFarm', tokensFarm.address);
 
   let tokensFarmArtifact = await hre.artifacts.readArtifact("TokensFarm");
   saveContractAbis(hre.network.name, 'TokensFarm', tokensFarmArtifact.abi, hre.network.name);
-
-
-  // add pool and set LP token
-  await tokensFarm.addPool(contracts["RewardToken"], true);
 
 
   // fund rewards
@@ -51,10 +51,6 @@ async function main() {
   // tokensFarm = await hre.ethers.getContractAt(tokensFarmArtifact.abi, contracts["TokensFarm"]);
   // await tokensFarm.fund(totalRewards);
   // console.log('Farm funded properly.');
-
-  // // set penalty
-  // await tokensFarm.setEarlyWithdrawPenalty(0);
-  // console.log('Farm set penalty - BURN_REWARDS.');
 }
 
 // We recommend this pattern to be able to use async/await everywhere
