@@ -371,6 +371,46 @@
                         "internalType": "bool",
                         "name": "_isEarlyWithdrawAllowed",
                         "type": "bool"
+                    },
+                    {
+                        "internalType": "enum TokensFarm.EarlyWithdrawPenalty",
+                        "name": "_penalty",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "contract IERC20",
+                        "name": "_tokenStaked",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "_congressAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "_stakeFeePercent",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "_rewardFeePercent",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "_flatFeeAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address payable",
+                        "name": "_feeCollector",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "_isFlatFeeAllowed",
+                        "type": "bool"
                     }
                 ],
                 "stateMutability": "nonpayable",
@@ -399,6 +439,19 @@
                     }
                 ],
                 "name": "Deposit",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "enum TokensFarm.EarlyWithdrawPenalty",
+                        "name": "penalty",
+                        "type": "uint8"
+                    }
+                ],
+                "name": "EarlyWithdrawPenaltyChange",
                 "type": "event"
             },
             {
@@ -471,21 +524,29 @@
                 "type": "event"
             },
             {
-                "inputs": [
+                "inputs": [],
+                "name": "accERC20PerShare",
+                "outputs": [
                     {
-                        "internalType": "contract IERC20",
-                        "name": "_tokenStaked",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "_withUpdate",
-                        "type": "bool"
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
                     }
                 ],
-                "name": "addPool",
-                "outputs": [],
-                "stateMutability": "nonpayable",
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "congressAddress",
+                "outputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
                 "type": "function"
             },
             {
@@ -498,7 +559,7 @@
                 ],
                 "name": "deposit",
                 "outputs": [],
-                "stateMutability": "nonpayable",
+                "stateMutability": "payable",
                 "type": "function"
             },
             {
@@ -583,6 +644,19 @@
                         "internalType": "contract IERC20",
                         "name": "",
                         "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "flatFeeAmount",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
                     }
                 ],
                 "stateMutability": "view",
@@ -682,6 +756,32 @@
             },
             {
                 "inputs": [],
+                "name": "isFlatFeeAllowed",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "",
+                        "type": "bool"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "lastRewardTime",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
                 "name": "minTimeToStake",
                 "outputs": [
                     {
@@ -758,37 +858,22 @@
             },
             {
                 "inputs": [],
-                "name": "pool",
-                "outputs": [
-                    {
-                        "internalType": "contract IERC20",
-                        "name": "tokenStaked",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "lastRewardTime",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "accERC20PerShare",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "totalDeposits",
-                        "type": "uint256"
-                    }
-                ],
-                "stateMutability": "view",
+                "name": "renounceOwnership",
+                "outputs": [],
+                "stateMutability": "nonpayable",
                 "type": "function"
             },
             {
                 "inputs": [],
-                "name": "renounceOwnership",
-                "outputs": [],
-                "stateMutability": "nonpayable",
+                "name": "rewardFeePercent",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
                 "type": "function"
             },
             {
@@ -807,14 +892,40 @@
             {
                 "inputs": [
                     {
-                        "internalType": "enum TokensFarm.EarlyWithdrawPenalty",
-                        "name": "_penalty",
-                        "type": "uint8"
+                        "internalType": "address payable",
+                        "name": "_feeCollector",
+                        "type": "address"
                     }
                 ],
-                "name": "setEarlyWithdrawPenalty",
+                "name": "setFeeCollector",
                 "outputs": [],
                 "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "_minTimeToStake",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "setMinTimeToStake",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "stakeFeePercent",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
                 "type": "function"
             },
             {
@@ -854,6 +965,32 @@
             {
                 "inputs": [],
                 "name": "startTime",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "tokenStaked",
+                "outputs": [
+                    {
+                        "internalType": "contract IERC20",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "totalDeposits",
                 "outputs": [
                     {
                         "internalType": "uint256",
@@ -925,7 +1062,7 @@
                 ],
                 "name": "withdraw",
                 "outputs": [],
-                "stateMutability": "nonpayable",
+                "stateMutability": "payable",
                 "type": "function"
             }
         ]
