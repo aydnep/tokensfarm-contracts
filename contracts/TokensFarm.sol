@@ -265,7 +265,7 @@ contract TokensFarm is Ownable, ReentrancyGuard {
         } else {
             // Collect stake fee
             uint256 feeAmount = _amount.div(100).mul(stakeFeePercent);
-            uint256 stakeAmount = _amount.div(feeAmount);
+            uint256 stakeAmount = _amount.sub(feeAmount);
             tokenStaked.safeTransfer(feeCollector, feeAmount);
             // Add amount to the pool total deposits
             totalDeposits = totalDeposits.add(stakeAmount);
@@ -401,7 +401,7 @@ contract TokensFarm is Ownable, ReentrancyGuard {
         } else {
             // Collect reward fee
             uint256 feeAmount = _amount.div(100).mul(rewardFeePercent);
-            uint256 rewardAmount = _amount.div(feeAmount);
+            uint256 rewardAmount = _amount.sub(feeAmount);
             erc20.transfer(feeCollector, feeAmount);
             // send reward
             erc20.transfer(_to, rewardAmount);
