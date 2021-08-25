@@ -525,6 +525,19 @@
             },
             {
                 "inputs": [],
+                "name": "accERC20PerShare",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
                 "name": "congressAddress",
                 "outputs": [
                     {
@@ -756,6 +769,19 @@
             },
             {
                 "inputs": [],
+                "name": "lastRewardTime",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
                 "name": "minTimeToStake",
                 "outputs": [
                     {
@@ -939,6 +965,32 @@
             {
                 "inputs": [],
                 "name": "startTime",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "tokenStaked",
+                "outputs": [
+                    {
+                        "internalType": "contract IERC20",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "totalDeposits",
                 "outputs": [
                     {
                         "internalType": "uint256",
