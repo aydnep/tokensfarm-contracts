@@ -25,7 +25,7 @@ const checksumNetworkAndBranch = (network, branch) => {
 async function main() {
     const gitBranch = branch.sync();
 
-    checksumNetworkAndBranch(hre.network.name, gitBranch);
+    // checksumNetworkAndBranch(hre.network.name, gitBranch);
     const contracts = getSavedContractAddresses()[hre.network.name]
 
     let contractsToPush = []

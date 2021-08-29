@@ -83,6 +83,6 @@ module.exports = {
   },
   tenderly: {
     username: process.env.USERNAME,
-    project: generateTenderlySlug()
+    project: 'tokensfarm-prod'
   },
 }
