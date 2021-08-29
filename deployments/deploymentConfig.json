@@ -2,7 +2,7 @@
     "mainnet": {
         "stakingTokenAddress": "0x88a9a52f944315d5b4e917b9689e65445c401e83",
         "rewardTokenAddress": "0x88a9a52f944315d5b4e917b9689e65445c401e83",
-        "startTime": 1630075683,
+        "startTime": 1630227900,
         "rewardTokenAmount": 60000,
         "minTimeToStake": 10,
         "farmPeriod": 30,
